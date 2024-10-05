@@ -16,5 +16,5 @@
 
 <template>
     <Label :for="name.replace(/\./g, '_')">{{ props.label }}</Label>
-    <Checkbox :id="name.replace(/\./g, '_')" v-model="bool" />
+    <Checkbox :id="name.replace(/\./g, '_')" v-model="bool" class="ml-2" />
 </template>
