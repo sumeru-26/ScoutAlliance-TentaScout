@@ -20,6 +20,8 @@
             })
             console.log(appSchema)
             setToStorage('appSchema', JSON.stringify(appSchema.app))
+            await navigateTo('/')
+
         } catch (error) {
             console.log(error.message)
         }

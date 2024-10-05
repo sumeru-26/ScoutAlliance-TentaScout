@@ -86,7 +86,9 @@ import { timestamp } from '@vueuse/core';
     function fixType(value, type) {
         if (type === 'num') {
             return parseInt(value)
-        } 
+        } else if (type === 'bool') {
+            return value == 'true'
+        }
         else {
             return value
         }
@@ -132,6 +134,7 @@ import { timestamp } from '@vueuse/core';
         <ul defer v-for="input in getInputs()" :key="input">
             <NumEntry v-if="input.type === 'num'" :name="input.id" :label="input.label" />
             <TextEntry v-if="input.type === 'text'" :name="input.id" :label="input.label" />
+            <BoolEntry v-if="input.type === 'bool'" :name="input.id" :label="input.label" />
         </ul>
         <Button @click.stop.prevent="submit()">Submit</Button>
     <!-- <Button @click.stop.prevent="test=getEntryJson()">test</Button>
