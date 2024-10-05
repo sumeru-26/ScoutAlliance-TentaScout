@@ -37,8 +37,13 @@ import { timestamp } from '@vueuse/core';
     }
 
     function getInputs() {
-        console.log(getAppSchema().inputs)
-        return getAppSchema().inputs
+        try {
+            console.log(getAppSchema().inputs)
+            return getAppSchema().inputs
+        } catch (e) {
+            console.log(e)
+        }
+        
     }
 
     function getEntryJson() {
@@ -124,7 +129,7 @@ import { timestamp } from '@vueuse/core';
             <NumberFieldIncrement />
         </NumberFieldContent>
     </NumberField>
-        <ul v-for="input in getInputs()" :key="input">
+        <ul defer v-for="input in getInputs()" :key="input">
             <NumEntry v-if="input.type === 'num'" :name="input.id" :label="input.label" />
             <TextEntry v-if="input.type === 'text'" :name="input.id" :label="input.label" />
         </ul>
