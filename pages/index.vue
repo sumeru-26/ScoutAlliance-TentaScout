@@ -51,17 +51,22 @@ import { timestamp } from '@vueuse/core';
         for (var input of getAppSchema().inputs) {
             if (input.id.includes('.')) {
                 var split = input.id.split('.')
-                var inter = {}
-                inter[split.at(-1)] = fixType(getFromStorage(input.id), input.type)
-                split.pop()
-                while (split.length > 1) {
-                    let temp = {}
-                    Object.assign(temp, inter)
-                    inter = {}
-                    inter[split.at(-1)] = temp
+                if (split[0] in data) {
+                    data[split[0]] = split[1]
+                } else {
+                    var inter = {}
+                    inter[split.at(-1)] = fixType(getFromStorage(input.id), input.type)
                     split.pop()
+                    while (split.length > 1) {
+                        let temp = {}
+                        Object.assign(temp, inter)
+                        inter = {}
+                        inter[split.at(-1)] = temp
+                        split.pop()
+                    }
+                    data[split[0]] = inter
                 }
-                data[split[0]] = inter
+                
             } else {
                 data[input.id] = fixType(getFromStorage(input.id), input.type)
             }
