@@ -27,6 +27,8 @@ import { timestamp } from '@vueuse/core';
     const match = ref(0)
     const bot = ref(0)
 
+    const submitNotif = ref(false)
+
     function getAppSchema() {
         if (import.meta.client) {
             console.log(JSON.parse(getFromStorage('appSchema')))
@@ -107,6 +109,12 @@ import { timestamp } from '@vueuse/core';
             },
             body: getEntryJson()
         })
+        submitNotif.value = true
+        sleep(4000).then(() => submitNotif.value = false)
+    }
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms))
     }
 
     // function logout() {
@@ -142,6 +150,7 @@ import { timestamp } from '@vueuse/core';
             <BoolEntry v-if="input.type === 'bool'" :name="input.id" :label="input.label" />
         </ul>
         <Button @click.stop.prevent="submit()">Submit</Button>
+        <p v-if="submitNotif" class="text-green-600">Submitted!</p>
     <!-- <Button @click.stop.prevent="test=getEntryJson()">test</Button>
     <p>{{ test }}</p> -->
 </template>
