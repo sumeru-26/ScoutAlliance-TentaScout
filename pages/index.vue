@@ -52,7 +52,7 @@ import { timestamp } from '@vueuse/core';
             if (input.id.includes('.')) {
                 var split = input.id.split('.')
                 if (split[0] in data) {
-                    data[split[0]] = split[1]
+                    data[split[0]][split[1]] = fixType(getFromStorage(input.id), input.type)
                 } else {
                     var inter = {}
                     inter[split.at(-1)] = fixType(getFromStorage(input.id), input.type)
